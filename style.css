@@ -4,6 +4,7 @@
   --accent-color: #404040;
   --hover-color: #707070;
   --section-padding: 100px 50px;
+  --teal-accent: #20c997; /* New teal accent color */
 }
 
 * {
@@ -57,7 +58,7 @@ h1::after {
   left: 0;
   width: 50px;
   height: 3px;
-  background-color: var(--accent-color);
+  background-color: var(--teal-accent); /* Changed from accent-color to teal-accent */
 }
 
 /* Side Navigation - Updated to Left Side */
@@ -94,7 +95,7 @@ h1::after {
 
 .nav-link.active {
   opacity: 1;
-  background-color: var(--accent-color);
+  background-color: var(--teal-accent); /* Changed from accent-color to teal-accent */
 }
 
 .nav-link:hover {
@@ -176,6 +177,7 @@ h1::after {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
   background-color: rgba(255, 255, 255, 0.08);
   z-index: 1;
+  border-top: 2px solid var(--teal-accent); /* Added teal border on hover */
 }
 
 .project-card::before {
@@ -215,7 +217,7 @@ h1::after {
 
 .project-card:hover h3 {
   transform: translateY(-5px);
-  color: #fff;
+  color: var(--teal-accent); /* Changed from #fff to teal accent */
 }
 
 .project-card p {
@@ -254,7 +256,7 @@ h1::after {
 }
 
 .btn:hover {
-  background-color: var(--hover-color);
+  background-color: var(--teal-accent); /* Changed from hover-color to teal-accent */
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -301,7 +303,7 @@ h1::after {
 }
 
 .social-links a:hover {
-  background-color: var(--hover-color);
+  background-color: var(--teal-accent); /* Changed from hover-color to teal-accent */
   transform: translateY(-5px);
 }
 
