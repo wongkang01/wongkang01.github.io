@@ -1,0 +1,393 @@
+:root {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #404040;
+  --hover-color: #707070;
+  --section-padding: 100px 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section Styles */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-padding);
+  position: relative;
+}
+
+.content {
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--accent-color);
+}
+
+/* Side Navigation - Updated to Left Side */
+.side-nav {
+  position: fixed;
+  top: 50%;
+  left: 30px; /* Changed from right: 30px to left: 30px */
+  transform: translateY(-50%);
+  z-index: 100;
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 30px;
+  padding: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.side-nav ul {
+  list-style: none;
+}
+
+.side-nav li {
+  margin: 15px 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.nav-link.active {
+  opacity: 1;
+  background-color: var(--accent-color);
+}
+
+.nav-link:hover {
+  opacity: 1;
+  transform: translateX(5px); /* Changed from translateX(-5px) to translateX(5px) */
+  background-color: var(--hover-color);
+}
+
+.nav-text {
+  margin-left: 10px; /* Changed from margin-right to margin-left */
+  order: 2; /* Move text to the right of the icon */
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.nav-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  order: 1; /* Move icon to the left of the text */
+}
+
+/* Remove old nav-dot styles */
+.tooltip, .nav-dot {
+  display: none;
+}
+
+/* About Section */
+.about-content {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.profile-img {
+  flex: 0 0 250px;
+}
+
+.img-placeholder {
+  width: 250px;
+  height: 250px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+}
+
+/* Projects Section - Enhanced hover effects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  perspective: 1000px; /* Add perspective for 3D effects */
+}
+
+.project-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform-origin: center bottom;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-img {
+  height: 180px;
+  background-color: var(--accent-color);
+  border-radius: 4px;
+  margin-bottom: 15px;
+  transition: transform 0.4s ease;
+  overflow: hidden;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.05);
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.project-card:hover h3 {
+  transform: translateY(-5px);
+  color: #fff;
+}
+
+.project-card p {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.project-card:hover p {
+  transform: translateY(-2px);
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  opacity: 0.8;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover .project-links {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::after {
+  left: 100%;
+}
+
+/* Contact Section */
+.contact-intro {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section {
+    padding: 50px 20px;
+  }
+  
+  .side-nav {
+    left: 10px; /* Changed from right: 10px to left: 10px */
+    padding: 10px;
+  }
+  
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .img-placeholder {
+    margin: 0 auto 30px;
+  }
+  
+  h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .nav-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animation Classes - Updated for better reset behavior */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.slide-in-left.appear, .slide-in-right.appear {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.scale-in.appear {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Delayed animations for child elements */
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-400 {
+  transition-delay: 0.4s;
+}
+
+.delay-600 {
+  transition-delay: 0.6s;
+}
