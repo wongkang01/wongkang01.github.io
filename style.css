@@ -143,6 +143,20 @@ h1::after {
   border-radius: 50%;
 }
 
+.actual-img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--teal-accent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.actual-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(32, 201, 151, 0.5);
+}
+
 .about-text {
   flex: 1;
   min-width: 300px;
@@ -150,6 +164,111 @@ h1::after {
 
 .about-text p {
   margin-bottom: 20px;
+}
+
+/* Tabs in About Section */
+.tabs {
+  width: 100%;
+}
+
+.tab-buttons {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  position: relative;
+}
+
+.tab-button::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--teal-accent);
+  transition: width 0.3s ease;
+}
+
+.tab-button:hover {
+  opacity: 1;
+}
+
+.tab-button.active {
+  opacity: 1;
+}
+
+.tab-button.active::after {
+  width: 100%;
+}
+
+.tab-content {
+  position: relative;
+}
+
+.tab-pane {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tab-pane.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skills styling */
+.skills-category {
+  margin-bottom: 25px;
+}
+
+.skills-category h3 {
+  color: var(--teal-accent);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.skills-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.skill-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.skill-item h4 {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.skill-item p {
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
 /* Projects Section - Enhanced hover effects */
@@ -334,6 +453,10 @@ h1::after {
   
   .nav-text {
     font-size: 0.8rem;
+  }
+  
+  .skills-group {
+    grid-template-columns: 1fr;
   }
 }
 
