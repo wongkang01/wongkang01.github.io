@@ -323,10 +323,20 @@ h1::after {
   margin-bottom: 15px;
   transition: transform 0.4s ease;
   overflow: hidden;
+  position: relative;
 }
 
-.project-card:hover .project-img {
-  transform: scale(1.05);
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* Makes image cover the container while maintaining aspect ratio */
+  object-position: center;  /* Centers the image within the container */
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-card:hover .project-img img {
+  transform: scale(1.08);  /* Slightly larger scale effect on hover */
+  filter: brightness(1.1);  /* Slightly brighten the image on hover */
 }
 
 .project-card h3 {
