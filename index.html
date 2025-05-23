@@ -9,150 +9,127 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="side-nav">
-        <ul>
-            <li><a href="#about" class="nav-link" data-section="about">
-                <span class="nav-text">About</span>
-                <span class="nav-icon"></span>
-            </a></li>
-            <li><a href="#projects" class="nav-link" data-section="projects">
-                <span class="nav-text">Projects</span>
-                <span class="nav-icon"></span>
-            </a></li>
-            <li><a href="#contact" class="nav-link" data-section="contact">
-                <span class="nav-text">Contact</span>
-                <span class="nav-icon"></span>
-            </a></li>
-        </ul>
-    </nav>
+    <div class="cursor-effect-area"></div>
+    <div class="main-container">
+        <nav class="side-nav">
+            <div class="nav-header">
+                <div class="profile-section">
+                    <img src="images/logo.png" alt="Wong Kang Logo" class="profile-image">
+                    <h2>Wong Kang</h2>
+                </div>
+                <p>Computer Science Student at SUTD</p>
+                <p>Applying technology to dissect challenges and build innovative solutions.</p>
+            </div>
+            <ul>
+                <li><a href="#about" class="nav-link active" data-section="about">
+                    <span class="nav-line"></span><span class="nav-text">About</span>
+                </a></li>
+                <li><a href="#experience" class="nav-link" data-section="experience">
+                    <span class="nav-line"></span><span class="nav-text">Experience</span>
+                </a></li>
+                <li><a href="#projects" class="nav-link" data-section="projects">
+                    <span class="nav-line"></span><span class="nav-text">Projects</span>
+                </a></li>
+            </ul>
+            <div class="social-links-nav">
+                <a href="https://github.com/wongkang01" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/kang-wong-b8a05a226" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:wongkangmain@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </nav>
 
-    <div class="container">
-        <section id="about" class="section">
-            <div class="content">
-                <h1 class="fade-in">About Me</h1>
-                <div class="about-content">
-                    <div class="profile-img fade-in delay-200">
-                        <img src="images/profile_img.jpg" alt="Wong Kang's profile picture" class="actual-img">
-                    </div>
-                    <div class="about-text">
-                        <div class="tabs">
-                            <div class="tab-buttons">
-                                <button class="tab-button active" data-tab="info">Info</button>
-                                <button class="tab-button" data-tab="skills">Skills</button>
+        <div class="content-container">
+            <section id="about" class="section">
+                <div class="content">
+                    <img src="images/profile_img.jpg" alt="Wong Kang Profile" class="about-profile-image">
+                    <p>A third-year Computer Science student with keen interests in Fintech and a passion for leveraging Artificial Intelligence to solve real-world problems and improve user experiences.</p>
+                </div>
+            </section>
+
+            <section id="experience" class="section">
+                <div class="content">
+                    
+                    <div class="experience-grid">
+                        <div class="card">
+                            <div class="card-date-column">
+                                <span class="date">Jun 2023 - Sep 2023</span>
                             </div>
-                            
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="info">
-                                    <p class="slide-in-right delay-200">I am a second year Computer Science student with a keen interest in Fintech and Blockchain Technology.  I hope to leverage tech to solve real-world problems and improve user experiences. </p>
-                                    <p class="slide-in-right delay-600"></p>
+                            <div class="card-content-column">
+                                <div class="card-title-section">
+                                    <h3>Information Technology Operations Project Intern <span class="title-separator">•</span> <span class="company-name">NCS Group</span></h3>
                                 </div>
-                                
-                                <div class="tab-pane" id="skills">
-                                    <div class="skills-category slide-in-right delay-200">
-                                        <h3>Proficient in</h3>
-                                        <div class="skills-group">
-                                            <div class="skill-item">
-                                                <h4>Programming Languages</h4>
-                                                <p>Python, Java</p>
-                                            </div>
-                                            <div class="skill-item">
-                                                <h4>Libraries</h4>
-                                                <p>Pandas, MatplotLib, Streamlit</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="skills-category slide-in-right delay-400">
-                                        <h3>Familiar with</h3>
-                                        <div class="skills-group">
-                                            <div class="skill-item">
-                                                <h4>Programming Languages</h4>
-                                                <p>HTML, CSS, JavaScript</p>
-                                            </div>
-                                            <div class="skill-item">
-                                                <h4>Database</h4>
-                                                <p>MySQL, Firebase, MongoDB</p>
-                                            </div>
-                                            <div class="skill-item">
-                                                <h4>Frameworks</h4>
-                                                <p>Expo</p>
-                                            </div>
-                                            <div class="skill-item">
-                                                <h4>Cloud Services</h4>
-                                                <p>AWS EC2, AWS Lambda</p>
-                                            </div>
-                                            <div class="skill-item">
-                                                <h4>3D Modelling</h4>
-                                                <p>Blender, Twinmotion, SketchUp, Rhino</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <p>Developed an automated system to retrieve and categorize Enterprise Hardware End-of-Life (EOL) dates, significantly reducing manual processing time. Implemented Python scripts with OpenAI API, BeautifulSoup, and Requests for data tasks, Pandas for organization, and Streamlit for an interactive demo. Deployed on Amazon EC2 for team accessibility and streamlined EOL tracking.</p>
+                                <div class="tags">
+                                    <span>Python</span>
+                                    <span>OpenAI API</span>
+                                    <span>BeautifulSoup</span>
+                                    <span>Requests</span>
+                                    <span>Pandas</span>
+                                    <span>Streamlit</span>
+                                    <span>AWS EC2</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="projects" class="section">
-            <div class="content">
-                <h1 class="fade-in">Projects</h1>
-                <div class="projects-grid">
-                    <div class="project-card scale-in delay-200">
-                        <div class="project-img">
-                            <img src="images/crop_yield_prediction.jpg" alt="Crop Yield Prediction Model">
+            <section id="projects" class="section">
+                <div class="content">
+                    
+                    <div class="projects-grid">
+                        <div class="card">
+                            <div class="project-thumbnail-column">
+                                <img src="images/travel_app.jpg" alt="Wandr App Thumbnail" class="project-thumbnail">
+                            </div>
+                            <div class="card-content-column">
+                                <div class="card-title-section">
+                                    <h3><a href="files/Wandr.pdf" target="_blank" rel="noopener noreferrer">Wandr - Social Media x Travel Planner App <span class="arrow">↗</span></a></h3>
+                                    <span class="date">Feb 2025 - Present</span>
+                                </div>
+                                <p>Designing and developing an Android application integrating social media with travel planning. Focus on intuitive UI/UX using Figma, robust backend with Java, and efficient data management via MySQL and Firebase. Customized XML layouts enhance visual design and user experience. Achieved 1st Prize in Singtel Information Systems and Programming Awards 2025.</p>
+                                <div class="tags">
+                                    <span>Java</span>
+                                    <span>Figma</span>
+                                    <span>MySQL</span>
+                                    <span>Firebase</span>
+                                    <span>XML</span>
+                                    <span>Android</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="files/Wandr.pdf" class="btn">View Project <i class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            </div>
                         </div>
-                        <h3>Crop Yield Predcition Model</h3>
-                        <p>Multiple linear regression model using gradient descent to predict crop yield, aiding policy planning for food supply sustainability.</p>
-                        <div class="project-links">
-                            <a href="https://wongkang01.github.io/crop_yield_prediction/" class="btn">View Project</a>
-                            <a href="https://github.com/wongkang01/crop_yield_prediction" class="btn">GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-card scale-in delay-400">
-                        <div class="project-img">
-                            <img src="images/travel_app.jpg" alt="wandr app">
-                        </div>
-                        <h3>wandr (in progress)</h3>
-                        <p>Social Media x Travel Planner Andrioid App</p>
-                        <div class="project-links">
-                            <a href="files/Wandr.pdf" class="btn">View Project</a>
-                            <!-- <a href="#" class="btn">GitHub</a> -->
-                        </div>
-                    </div>
-                    <div class="project-card scale-in delay-600">
-                        <div class="project-img">
-                            <img src="images/calorie_tracking.jpg" alt="Calorie Tracking App">
-                        </div>
-                        <h3>CALs (In progress)</h3>
-                        <p>AI Calorie Tracking App</p>
-                        <div class="project-links">
-                            <a href="images/calorie_tracking.jpg" class="btn">View Project</a>
-                            <!-- <a href="#" class="btn">GitHub</a> -->
+                        <div class="card">
+                            <div class="project-thumbnail-column">
+                                <img src="images/crop_yield_prediction.jpg" alt="Crop Yield Prediction Model Thumbnail" class="project-thumbnail">
+                            </div>
+                            <div class="card-content-column">
+                                <div class="card-title-section">
+                                    <h3><a href="https://wongkang01.github.io/crop_yield_prediction/" target="_blank" rel="noopener noreferrer">Crop Yield Prediction Model <span class="arrow">↗</span></a></h3>
+                                    <span class="date">Nov 2024</span>
+                                </div>
+                                <p>Developed a multiple linear regression model using gradient descent to predict crop yield, supporting policy planning for food supply sustainability. Cleaned and standardized data from various sources using Pandas and refined the model through iterative feature engineering. Visualized data trends and model performance with Matplotlib.</p>
+                                <div class="tags">
+                                    <span>Python</span>
+                                    <span>Pandas</span>
+                                    <span>Matplotlib</span>
+                                    <span>Machine Learning</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="https://wongkang01.github.io/crop_yield_prediction/" class="btn">View Project <i class="fas fa-external-link-alt"></i></a>
+                                    <a href="https://github.com/wongkang01/crop_yield_prediction" class="btn">GitHub <i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="content">
-                <h1 class="fade-in">Contact</h1>
-                <p class="contact-intro slide-in-left delay-200">Feel free to reach out if you're looking for a developer, have a question, or just want to connect.</p>
-                <div class="social-links">
-                    <a href="https://github.com/wongkang01" target="_blank" rel="noopener noreferrer" class="fade-in delay-400">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/kang-wong-b8a05a226" target="_blank" rel="noopener noreferrer" class="fade-in delay-600">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                        <a href="mailto:wongkangmain@gmail.com" class="fade-in delay-800">
-                        <i class="fas fa-envelope"></i> 
-                    </a>
-                </div>
-            </div>
-        </section>
+            </section>
+            <section id="contact" class="section">
+                <!-- Contact section can be re-added or redesigned later if needed -->
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>

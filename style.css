@@ -1,10 +1,16 @@
 :root {
-  --bg-color: #121212;
-  --text-color: #ffffff;
-  --accent-color: #404040;
-  --hover-color: #707070;
-  --section-padding: 100px 50px;
-  --teal-accent: #20c997; /* New teal accent color */
+  --bg-color: #1a1a1a; /* Dark grey background */
+  --text-color: #f5f5f5; /* Very light grey text */
+  --accent-color: #14b8a6; /* Teal accent */
+  --hover-color: #2a2a2a; /* Lighter grey */
+  --card-bg-color: rgba(42, 42, 42, 0.4); /* Medium grey for cards - more transparent */
+  --section-padding: 60px 0;
+  --teal-accent: var(--accent-color); /* Teal accent */
+  --lightest-slate: #ffffff; /* Pure white for highest contrast */
+  --slate: #b0b0b0; /* Light grey for secondary text */
+  --light-slate: #d4d4d4; /* Very light grey */
+  --secondary-text: #888888; /* Medium grey for tertiary text */
+  --spotlight-color: rgba(255, 255, 255, 0.08); /* Subtle white glow */
 }
 
 * {
@@ -19,510 +25,471 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Section Styles */
-.section {
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color); /* Deep black background */
+  color: var(--text-color); /* Light gray text */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--section-padding);
-  position: relative;
+  height: 100vh;
+  overflow: hidden; /* Prevent body scroll */
+  position: relative; /* For seamless spotlight effect */
 }
 
-.content {
+.main-container {
+  display: flex;
   width: 100%;
+  height: 100%;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  position: relative;
-  display: inline-block;
-}
-
-h1::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background-color: var(--teal-accent); /* Changed from accent-color to teal-accent */
-}
-
-/* Side Navigation - Updated to Left Side */
+/* Side Navigation - Left Side, Static */
 .side-nav {
-  position: fixed;
-  top: 50%;
-  left: 30px; /* Changed from right: 30px to left: 30px */
-  transform: translateY(-50%);
-  z-index: 100;
-  background-color: rgba(40, 40, 40, 0.7);
-  border-radius: 30px;
-  padding: 15px;
-  backdrop-filter: blur(5px);
+  width: 40%; /* Adjust as needed, screenshot looks like ~40-50% */
+  max-width: 450px; /* Max width for larger screens */
+  padding: 50px 40px;
+  background-color: transparent; /* Transparent for seamless spotlight effect */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes social links to bottom */
+  height: 100vh; /* Full viewport height */
+  position: fixed; /* Fixed position */
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+}
+
+.nav-header h1 {
+  font-size: 2.8em; /* Larger name */
+  color: var(--lightest-slate); /* Light gray for name */
+  margin-bottom: 0.2em;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1em; /* Increased bottom margin for better spacing */
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain; /* Changed from cover to contain for logo */
+  transition: opacity 0.3s ease; /* Changed transition for logo */
+}
+
+.profile-image:hover {
+  opacity: 0.8; /* Changed hover effect for logo */
+}
+
+.profile-section h2 {
+  font-size: 2.8em;
+  color: var(--lightest-slate);
+  margin: 0;
+}
+
+.nav-header p {
+  font-size: 1.1em;
+  color: var(--slate); /* Medium gray for title/description */
+  margin-bottom: 0.8em; /* More consistent spacing */
+  line-height: 1.4; /* Better line height for readability */
+}
+
+.nav-header p:last-of-type {
+  margin-bottom: 2.5em; /* Consistent space before nav items */
 }
 
 .side-nav ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.side-nav li {
-  margin: 15px 0;
-}
-
-.nav-link {
+.side-nav ul li a {
   display: flex;
   align-items: center;
+  padding: 10px 0;
+  color: var(--slate); /* Medium gray for nav items */
   text-decoration: none;
-  color: var(--text-color);
-  opacity: 0.6;
-  transition: all 0.3s ease;
-  padding: 5px 15px;
-  border-radius: 20px;
+  font-size: 0.9em; /* Smaller font for nav items */
+  letter-spacing: 0.1em; /* Letter spacing for nav items */
+  transition: color 0.3s ease, padding-left 0.3s ease;
 }
 
-.nav-link.active {
-  opacity: 1;
-  background-color: var(--teal-accent); /* Changed from accent-color to teal-accent */
-}
-
-.nav-link:hover {
-  opacity: 1;
-  transform: translateX(5px); /* Changed from translateX(-5px) to translateX(5px) */
-  background-color: var(--hover-color);
-}
-
-.nav-text {
-  margin-left: 10px; /* Changed from margin-right to margin-left */
-  order: 2; /* Move text to the right of the icon */
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.nav-icon {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--text-color);
-  order: 1; /* Move icon to the left of the text */
-}
-
-/* Remove old nav-dot styles */
-.tooltip, .nav-dot {
-  display: none;
-}
-
-/* About Section */
-.about-content {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.profile-img {
-  flex: 0 0 250px;
-}
-
-.img-placeholder {
-  width: 250px;
-  height: 250px;
-  background-color: var(--accent-color);
-  border-radius: 50%;
-}
-
-.actual-img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--teal-accent);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.actual-img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(32, 201, 151, 0.5);
-}
-
-.about-text {
-  flex: 1;
-  min-width: 300px;
-}
-
-.about-text p {
-  margin-bottom: 20px;
-}
-
-/* Tabs in About Section */
-.tabs {
-  width: 100%;
-}
-
-.tab-buttons {
-  display: flex;
-  margin-bottom: 20px;
-  border-bottom: 2px solid var(--accent-color);
-}
-
-.tab-button {
-  background: none;
-  border: none;
-  color: var(--text-color);
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.7;
-  position: relative;
-}
-
-.tab-button::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--teal-accent);
-  transition: width 0.3s ease;
-}
-
-.tab-button:hover {
-  opacity: 1;
-}
-
-.tab-button.active {
-  opacity: 1;
-}
-
-.tab-button.active::after {
-  width: 100%;
-}
-
-.tab-content {
-  position: relative;
-}
-
-.tab-pane {
-  display: none;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.tab-pane.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Skills styling */
-.skills-category {
-  margin-bottom: 25px;
-}
-
-.skills-category h3 {
-  color: var(--teal-accent);
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.skills-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-}
-
-.skill-item {
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.skill-item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.skill-item h4 {
-  color: var(--text-color);
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  opacity: 0.8;
-}
-
-.skill-item p {
-  color: var(--text-color);
-  font-size: 1rem;
-}
-
-/* Projects Section - Enhanced hover effects */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-  perspective: 1000px; /* Add perspective for 3D effects */
-}
-
-.project-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 20px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transform-origin: center bottom;
-  cursor: pointer;
-}
-
-.project-card:hover {
-  transform: translateY(-15px) scale(1.05);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-  background-color: rgba(255, 255, 255, 0.08);
-  z-index: 1;
-  border-top: 2px solid var(--teal-accent); /* Added teal border on hover */
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: -1;
-}
-
-.project-card:hover::before {
-  opacity: 1;
-}
-
-.project-img {
-  height: 180px;
-  background-color: var(--accent-color);
-  border-radius: 4px;
-  margin-bottom: 15px;
-  transition: transform 0.4s ease;
-  overflow: hidden;
-  position: relative;
-}
-
-.project-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;  /* Makes image cover the container while maintaining aspect ratio */
-  object-position: center;  /* Centers the image within the container */
-  transition: transform 0.5s ease, filter 0.5s ease;
-}
-
-.project-card:hover .project-img img {
-  transform: scale(1.08);  /* Slightly larger scale effect on hover */
-  filter: brightness(1.1);  /* Slightly brighten the image on hover */
-}
-
-.project-card h3 {
-  margin-bottom: 10px;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.project-card:hover h3 {
-  transform: translateY(-5px);
-  color: var(--teal-accent); /* Changed from #fff to teal accent */
-}
-
-.project-card p {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.project-card:hover p {
-  transform: translateY(-2px);
-}
-
-.project-links {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  opacity: 0.8;
-  transform: translateY(5px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.project-card:hover .project-links {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.btn {
+.nav-line {
   display: inline-block;
-  padding: 8px 15px;
-  background-color: var(--accent-color);
-  color: var(--text-color);
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  position: relative;
-  overflow: hidden;
+  width: 30px; /* Default line width */
+  height: 1px;
+  background-color: var(--slate); /* Medium gray for line */
+  margin-right: 15px;
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: var(--teal-accent); /* Changed from hover-color to teal-accent */
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.side-nav ul li a:hover .nav-line,
+.side-nav ul li a.active .nav-line {
+  width: 60px; /* Line width on hover/active */
+  background-color: var(--accent-color); /* Teal for active/hover line */
 }
 
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: 0.5s;
+.side-nav ul li a:hover .nav-text,
+.side-nav ul li a.active .nav-text {
+  color: var(--accent-color); /* Teal for active/hover text */
 }
 
-.btn:hover::after {
-  left: 100%;
+.social-links-nav {
+  margin-top: auto; /* Pushes to the bottom if not enough content above */
+  padding-top: 20px;
 }
 
-/* Contact Section */
-.contact-intro {
-  max-width: 600px;
-  margin: 0 auto 40px;
+.social-links-nav a {
+  color: var(--slate); /* Medium gray for icons */
+  font-size: 1.5em;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.social-links-nav a:hover {
+  color: var(--accent-color); /* Teal on hover */
+}
+
+/* Content Area - Right Side, Scrollable */
+.content-container {
+  margin-left: 40%; /* Same as side-nav width */
+  width: 60%; /* Remaining width */
+  height: 100vh;
+  overflow-y: auto; /* Allow scrolling only for content */
+  padding: 50px 40px;
+  box-sizing: border-box;
+  background-color: transparent; /* Transparent for seamless spotlight effect */
+}
+
+.section {
+  min-height: 100vh; /* Each section takes full viewport height */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  padding-bottom: 40px; /* Spacing between sections */
+}
+
+#about {
+  justify-content: center; /* Center about section content */
+}
+
+#about .content {
   text-align: center;
+  max-width: 600px;
 }
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  background-color: var(--accent-color);
+.about-profile-image {
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  color: var(--text-color);
-  font-size: 1.5rem;
-  transition: all 0.3s ease;
+  object-fit: cover;
+  border: 3px solid var(--accent-color);
+  margin-bottom: 2em;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.social-links a:hover {
-  background-color: var(--teal-accent); /* Changed from hover-color to teal-accent */
-  transform: translateY(-5px);
+.about-profile-image:hover {
+  border-color: var(--lightest-slate);
+  transform: scale(1.05);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .section {
-    padding: 50px 20px;
-  }
-  
-  .side-nav {
-    left: 10px; /* Changed from right: 10px to left: 10px */
-    padding: 10px;
-  }
-  
-  .about-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .img-placeholder {
-    margin: 0 auto 30px;
-  }
-  
-  h1::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .nav-text {
-    font-size: 0.8rem;
-  }
-  
-  .skills-group {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Animation Classes - Updated for better reset behavior */
-.fade-in {
+.section.hidden {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.fade-in.appear {
+.section.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
-.slide-in-left {
-  opacity: 0;
-  transform: translateX(-100px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
+.section h1 {
+  color: var(--lightest-slate);
+  font-size: 2.2em;
+  margin-bottom: 2em;
+  font-weight: 600;
 }
 
-.slide-in-right {
-  opacity: 0;
-  transform: translateX(100px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
+.section .content {
+  max-width: none; /* Remove any width restrictions */
 }
 
-.slide-in-left.appear, .slide-in-right.appear {
+.section .content p {
+  color: var(--slate);
+  font-size: 1.1em;
+  line-height: 1.7;
+  margin-bottom: 1.5em;
+}
+
+/* Card Styling (for Experience and Projects) */
+.card {
+  background-color: transparent; /* Initially transparent */
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 8px; /* Rounded corners for cards */
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out, transform 0.3s ease-out, border-color 0.3s ease-out;
+  border: 1px solid transparent; /* For smooth transition */
+  display: flex; /* Enable flexbox for layout */
+  gap: 20px; /* Add gap between thumbnail and content */
+  cursor: pointer; /* Indicate interactivity */
+  opacity: 0; /* Initially hidden for animation */
+  transform: translateY(30px); /* Start slightly below */
+  transition: background-color 0.3s ease-out, opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.card.animate-in {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Move to original position */
+}
+
+.card:hover {
+  background-color: var(--card-bg-color); /* Semi-transparent background on hover */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); /* 3D bevel effect */
+  transform: translateY(-2px); /* Slight lift effect */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle highlight border */
+}
+
+.project-thumbnail-column {
+  flex: 0 0 150px; /* Fixed width for thumbnail column */
+  overflow: hidden; /* Hide overflow if image is larger */
+}
+
+.project-thumbnail {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Max height for the thumbnail */
+  object-fit: cover; /* Cover the area, cropping if necessary */
+  border-radius: 4px; /* Slightly rounded corners for the image */
+  border: 3px solid var(--hover-color); /* Increased outline border */
+  transition: transform 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+}
+
+.card:hover .project-thumbnail {
+  transform: scale(1.02); /* Slight zoom effect on card hover */
+  border-color: var(--accent-color); /* Teal border on hover */
+  filter: brightness(1.1); /* Slightly brighten the image */
+}
+
+.card-content-column {
+  flex: 1; /* Allow content to take remaining space */
+}
+
+.card-date-column {
+  flex: 0 0 150px; /* Fixed width for date column */
+  display: flex;
+  align-items: flex-start; /* Align to top */
+  padding-top: 5px;
+}
+
+.card-date-column .date {
+  font-size: 0.9em;
+  color: var(--secondary-text); /* Medium grey for dates */
+  white-space: nowrap; /* Prevent date from wrapping */
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.card:hover .card-date-column .date {
+  color: var(--accent-color); /* Teal color on card hover */
+}
+
+.card-title-section {
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-title-section {
+  transform: translateX(2px); /* Slight shift on hover for emphasis */
+}
+
+.card-header h3, /* Keep this for backward compatibility if any h3 is directly in card-header */
+.card-title-section h3 {
+  font-size: 1.3em;
+  color: var(--lightest-slate); /* Pure white for card titles */
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card-title-section h3 a {
+  color: var(--lightest-slate); /* Pure white for project titles */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card-title-section h3 a:hover {
+  color: var(--accent-color); /* Teal accent on hover */
+}
+
+.card-title-section h3 .arrow {
+  color: var(--accent-color); /* Teal accent for arrow */
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-left: 5px;
+}
+
+.card:hover .card-title-section h3 .arrow {
+  transform: translateX(3px) translateY(-3px); /* Arrow animation on hover */
+}
+
+.card-title-section .title-separator {
+  color: var(--slate);
+  margin: 0 0.25em;
+}
+
+.card-title-section .company-name,
+.card-title-section .project-subtitle {
+  color: var(--slate);
+  font-weight: normal;
+}
+
+.card-header h4 { /* This might be deprecated with the new structure but kept for safety */
+  font-size: 1em;
+  color: var(--slate); /* Medium grey for sub-headers */
+  margin: 0;
+  font-weight: normal;
+}
+
+.card .date { /* This specific .date inside .card might be less used now, but kept for safety */
+  font-size: 0.9em;
+  color: var(--secondary-text); /* Medium grey for dates */
+  white-space: nowrap; /* Prevent date from wrapping */
+}
+
+.card p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: var(--slate); /* Light grey for paragraph text */
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.card:hover p {
+  color: var(--light-slate); /* Slightly brighter text on card hover */
+}
+
+.tags span {
+  display: inline-block;
+  background-color: rgba(20, 184, 166, 0.15); /* Teal accent background with low opacity */
+  color: var(--accent-color); /* Teal accent text color */
+  padding: 5px 10px;
+  border-radius: 15px; /* Pill shape */
+  font-size: 0.8em;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(20, 184, 166, 0.3); /* Subtle teal border */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.tags span:hover {
+  background-color: rgba(20, 184, 166, 0.25); /* Slightly more opaque on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3); /* Glowing shadow */
+}
+
+.card:hover .tags span {
+  background-color: rgba(20, 184, 166, 0.2); /* Enhanced background when card is hovered */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 992px) { /* Tablet and smaller */
+  .main-container {
+    flex-direction: column;
+    height: auto;
+    overflow: auto; /* Allow body scroll on small screens */
+  }
+
+  .side-nav {
+    width: 100%;
+    position: static; /* Remove fixed positioning */
+    height: auto; /* Auto height */
+    max-width: none;
+    padding: 30px 20px;
+  }
+
+  .nav-header p:last-of-type {
+    margin-bottom: 1.5em;
+  }
+
+  .content-container {
+    width: 100%;
+    margin-left: 0;
+    height: auto; /* Auto height */
+    overflow-y: visible; /* Remove internal scroll */
+    padding: 30px 20px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card .date {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 768px) { /* Mobile */
+  .nav-header h1 {
+    font-size: 2.2em;
+  }
+  .profile-section h2 {
+    font-size: 2.2em;
+  }
+  .profile-image {
+    width: 50px;
+    height: 50px;
+  }
+  .nav-header p {
+    font-size: 1em;
+  }
+  .side-nav ul li a {
+    font-size: 0.85em;
+  }
+  .card-header h3 {
+    font-size: 1.15em;
+  }
+  .card p {
+    font-size: 0.9em;
+  }
+  .tags span {
+    font-size: 0.75em;
+  }
+}
+
+/* Background cursor effect - subtle spotlight behind content */
+.cursor-effect-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Behind everything */
+  pointer-events: none; /* Allows clicks to pass through */
+  background: var(--bg-color); /* Dark grey background */
+  transition: background 0.2s ease-out; /* Smooth transition for cursor effect */
+}
+
+.cursor-effect-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.04) 30%, 
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.cursor-effect-area.active::before {
   opacity: 1;
-  transform: translateX(0);
-}
-
-.scale-in {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
-}
-
-.scale-in.appear {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Delayed animations for child elements */
-.delay-200 {
-  transition-delay: 0.2s;
-}
-
-.delay-400 {
-  transition-delay: 0.4s;
-}
-
-.delay-600 {
-  transition-delay: 0.6s;
 }

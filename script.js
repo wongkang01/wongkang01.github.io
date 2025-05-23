@@ -1,140 +1,179 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all sections and navigation links
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.side-nav ul li a');
+    const sections = Array.from(document.querySelectorAll('.section')); // Convert to array
+    const contentContainer = document.querySelector('.content-container');
 
-    // Function to update active navigation link
-    const updateNavLinks = () => {
-        const scrollPosition = window.scrollY;
-
-        // Find which section is currently in view
-        sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (scrollPosition >= sectionTop - window.innerHeight / 2 && 
-                scrollPosition < sectionTop + sectionHeight - window.innerHeight / 2) {
-                // Remove active class from all links
-                navLinks.forEach(link => link.classList.remove('active'));
-                // Add active class to current link
-                navLinks[index].classList.add('active');
-            }
-        });
-    };
-
-    // Update active link on scroll
-    window.addEventListener('scroll', updateNavLinks);
-
-    // Initial call to set active link on page load
-    updateNavLinks();
-
-    // Smooth scroll for all internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    // Smooth scroll to section on nav link click
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop,
+            const sectionId = link.getAttribute('data-section');
+            const targetSection = document.getElementById(sectionId);
+
+            if (targetSection) {
+                // Scroll the contentContainer to the target section
+                contentContainer.scrollTo({
+                    top: targetSection.offsetTop, // Assumes offsetTop is relative to contentContainer's scrollable content
                     behavior: 'smooth'
                 });
             }
+            // Active class on navLinks will be primarily handled by the scroll listener for accuracy,
+            // but for immediate feedback on click, we can also set it here.
+            // However, to avoid conflicts, let the scroll listener be the source of truth.
         });
     });
 
-    // Tab functionality for About section
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons and panes
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            
-            // Add active class to current button
-            button.classList.add('active');
-            
-            // Show corresponding tab pane
-            const tabId = button.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-        });
-    });
-
-    // ANIMATION ON SCROLL - IMPROVED TO RUN EVERY TIME
-    // Track currently visible section for animation reset
-    let currentVisibleSectionId = null;
-    let previouslyVisibleSectionId = null;
-
-    // Function to check if sections are in viewport and manage animations
-    const checkSectionsInView = () => {
-        const scrollPosition = window.scrollY;
-        
-        sections.forEach(section => {
-            const sectionId = section.id;
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            // Check if this section is currently in view (center of viewport)
-            if (scrollPosition >= sectionTop - window.innerHeight / 2 && 
-                scrollPosition < sectionTop + sectionHeight - window.innerHeight / 2) {
-                
-                currentVisibleSectionId = sectionId;
-                
-                // If we've changed sections
-                if (previouslyVisibleSectionId !== currentVisibleSectionId) {
-                    console.log(`Switching from ${previouslyVisibleSectionId} to ${currentVisibleSectionId}`);
-                    
-                    // Reset animations for previously visible section if it exists and is different
-                    if (previouslyVisibleSectionId && previouslyVisibleSectionId !== currentVisibleSectionId) {
-                        resetSectionAnimations(previouslyVisibleSectionId);
-                    }
-                    
-                    // Animate current section elements
-                    animateSectionElements(currentVisibleSectionId);
-                    
-                    // Update the previously visible section
-                    previouslyVisibleSectionId = currentVisibleSectionId;
-                }
+    // Update active nav link based on scroll position and animate sections
+    if (contentContainer && sections.length > 0) {
+        // Initially hide all sections except About
+        sections.forEach((section, index) => {
+            if (index > 0) { // Hide all sections except the first (About)
+                section.classList.add('hidden');
             }
         });
-    };
-    
-    // Function to reset animations for a section
-    const resetSectionAnimations = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
-        
-        const animatedElements = section.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-        animatedElements.forEach(element => {
-            element.classList.remove('appear');
+
+        const updateActiveNavLinkOnScroll = () => {
+            const containerScrollTop = contentContainer.scrollTop;
+            // An offset to trigger activation when the section is near the top of the viewport.
+            // Adjust this value as needed (e.g., a fraction of viewport height or fixed pixels).
+            const activationOffset = contentContainer.clientHeight * 0.4; 
+            let currentActiveSectionId = '';
+
+            // Default to the first section if scrolled to the very top
+            if (containerScrollTop < 50) { // Small threshold for being at the top
+                currentActiveSectionId = sections[0].id;
+            } else {
+                for (const section of sections) {
+                    if (section.offsetTop <= containerScrollTop + activationOffset) {
+                        currentActiveSectionId = section.id;
+                    } else {
+                        // Sections are ordered, so if this one isn't active, subsequent ones won't be.
+                        break;
+                    }
+                }
+            }
             
-            // Force reflow to ensure CSS transitions restart
-            void element.offsetWidth;
-        });
-    };
-    
-    // Function to animate elements in a section
-    const animateSectionElements = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
-        
-        const animatedElements = section.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-        
-        // Delay slightly to ensure animations run after reset
-        setTimeout(() => {
-            animatedElements.forEach(element => {
-                element.classList.add('appear');
+            // If scrolled to the very bottom, the last section should be active
+            if (containerScrollTop + contentContainer.clientHeight >= contentContainer.scrollHeight - 2) { // 2px tolerance
+                currentActiveSectionId = sections[sections.length - 1].id;
+            }
+
+            navLinks.forEach(navLink => {
+                if (navLink.getAttribute('data-section') === currentActiveSectionId) {
+                    navLink.classList.add('active');
+                } else {
+                    navLink.classList.remove('active');
+                }
             });
-        }, 50);
+        };
+
+        // Section animation observer
+        const sectionObserverOptions = {
+            root: contentContainer,
+            rootMargin: '0px 0px -20% 0px',
+            threshold: 0.1
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, sectionObserverOptions);
+
+        // Observe all sections except the first one (About)
+        sections.forEach((section, index) => {
+            if (index > 0) {
+                sectionObserver.observe(section);
+            }
+        });
+
+        contentContainer.addEventListener('scroll', updateActiveNavLinkOnScroll);
+        // Initial call to set active link on page load
+        updateActiveNavLinkOnScroll();
+    }
+
+    // Card animation on scroll
+    const observerOptions = {
+        root: contentContainer,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.1
     };
-    
-    // Listen for scroll events
-    window.addEventListener('scroll', checkSectionsInView);
-    
-    // Initial check
-    checkSectionsInView();
+
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        cardObserver.observe(card);
+    });
+
+    // Cursor effect - responsive background spotlight
+    const cursorEffectArea = document.querySelector('.cursor-effect-area');
+    let isMouseActive = false;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Throttle function to improve performance
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+
+    // Update cursor position
+    const updateCursorPosition = throttle((e) => {
+        mouseX = (e.clientX / window.innerWidth) * 100;
+        mouseY = (e.clientY / window.innerHeight) * 100;
+        
+        if (cursorEffectArea) {
+            cursorEffectArea.style.setProperty('--mouse-x', mouseX + '%');
+            cursorEffectArea.style.setProperty('--mouse-y', mouseY + '%');
+        }
+    }, 16); // ~60fps
+
+    // Mouse move event
+    document.addEventListener('mousemove', (e) => {
+        if (!isMouseActive) {
+            isMouseActive = true;
+            cursorEffectArea?.classList.add('active');
+        }
+        updateCursorPosition(e);
+    });
+
+    // Mouse leave event
+    document.addEventListener('mouseleave', () => {
+        isMouseActive = false;
+        cursorEffectArea?.classList.remove('active');
+    });
+
+    // Touch device handling - disable cursor effect on touch devices
+    document.addEventListener('touchstart', () => {
+        isMouseActive = false;
+        cursorEffectArea?.classList.remove('active');
+    }, { once: true });
+
+    // Remove the old initial activation logic that might conflict or be redundant
+    // The scroll listener's initial call should handle the active state.
+    // Example of what's being replaced/removed:
+    // if (navLinks.length > 0) {
+    //     navLinks[0].classList.add('active');
+    //     showSection(navLinks[0].getAttribute('data-section')); // showSection is removed
+    // }
+    // Also removing the fallback logic that used showSection.
 });
