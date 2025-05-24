@@ -90,12 +90,12 @@ body::-webkit-scrollbar {
 .profile-image {
   width: 60px;
   height: 60px;
-  object-fit: contain; /* Changed from cover to contain for logo */
-  transition: opacity 0.3s ease; /* Changed transition for logo */
+  object-fit: contain; /* For logo */
+  transition: opacity 0.3s ease;
 }
 
 .profile-image:hover {
-  opacity: 0.8; /* Changed hover effect for logo */
+  opacity: 0.8;
 }
 
 .profile-section h2 {
@@ -200,8 +200,8 @@ body::-webkit-scrollbar {
 }
 
 .about-profile-image {
-  width: 150px;
-  height: 150px;
+  width: 220px !important; /* Force override any conflicting styles */
+  height: 220px !important; /* Force override any conflicting styles */
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--accent-color);
