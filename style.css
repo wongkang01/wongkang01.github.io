@@ -29,8 +29,6 @@ body {
   padding: 0;
   background-color: var(--bg-color); /* Deep black background */
   color: var(--text-color); /* Light gray text */
-  height: 100vh;
-  overflow: hidden; /* Prevent body scroll */
   position: relative; /* For seamless spotlight effect */
 }
 
@@ -39,7 +37,6 @@ body {
   width: 100%;
   max-width: 1440px; /* Max width for the centered content */
   margin: 0 auto; /* Center the container */
-  height: 100%; /* Effectively 100vh */
 }
 
 /* Side Navigation - Left Side, Static */
@@ -154,8 +151,6 @@ body {
 /* Content Area - Right Side, Scrollable */
 .content-container {
   width: 70%; /* Adjusted width */
-  height: 100vh;
-  overflow-y: auto; /* Allow scrolling only for content */
   padding: 50px 40px;
   box-sizing: border-box;
   background-color: transparent; /* Transparent for seamless spotlight effect */
