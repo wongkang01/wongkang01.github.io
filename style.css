@@ -30,6 +30,7 @@ body {
   background-color: var(--bg-color); /* Deep black background */
   color: var(--text-color); /* Light gray text */
   position: relative; /* For seamless spotlight effect */
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
 .main-container {
@@ -37,6 +38,7 @@ body {
   width: 100%;
   max-width: 1440px; /* Max width for the centered content */
   margin: 0 auto; /* Center the container */
+  position: relative; /* For proper positioning of fixed elements */
 }
 
 /* Side Navigation - Left Side, Static */
@@ -50,7 +52,18 @@ body {
   justify-content: space-between; /* Pushes social links to bottom */
   height: 100vh; /* Full viewport height */
   box-sizing: border-box;
+  position: fixed; /* Make navigation fixed */
+  top: 0;
+  left: 0;
   overflow-y: auto; /* Added for potential overflow */
+  /* Hide scrollbar for side nav */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.side-nav::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .nav-header h1 {
@@ -151,9 +164,19 @@ body {
 /* Content Area - Right Side, Scrollable */
 .content-container {
   width: 70%; /* Adjusted width */
+  margin-left: 30%; /* Offset by the width of the fixed side nav */
   padding: 50px 40px;
   box-sizing: border-box;
   background-color: transparent; /* Transparent for seamless spotlight effect */
+  height: 100vh; /* Full viewport height */
+  overflow-y: auto; /* Enable scrolling */
+  /* Hide scrollbar while maintaining scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.content-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .section {
@@ -400,6 +423,7 @@ body {
     height: auto; /* Auto height */
     max-width: none;
     padding: 30px 20px;
+    margin-left: 0; /* Reset margin */
   }
 
   .nav-header p:last-of-type {
@@ -408,7 +432,7 @@ body {
 
   .content-container {
     width: 100%;
-    margin-left: 0;
+    margin-left: 0; /* Reset margin for mobile */
     height: auto; /* Auto height */
     overflow-y: visible; /* Remove internal scroll */
     padding: 30px 20px;
