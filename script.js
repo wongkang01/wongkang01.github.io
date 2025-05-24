@@ -11,20 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSection = document.getElementById(sectionId);
 
             if (targetSection) {
-                // Scroll the contentContainer to the target section
-                contentContainer.scrollTo({
-                    top: targetSection.offsetTop, // Assumes offsetTop is relative to contentContainer's scrollable content
+                // Calculate the absolute position of the target section
+                const targetOffset = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                
+                // Scroll the window to the target section
+                window.scrollTo({
+                    top: targetOffset,
                     behavior: 'smooth'
                 });
             }
-            // Active class on navLinks will be primarily handled by the scroll listener for accuracy,
-            // but for immediate feedback on click, we can also set it here.
-            // However, to avoid conflicts, let the scroll listener be the source of truth.
         });
     });
 
     // Update active nav link based on scroll position and animate sections
-    if (contentContainer && sections.length > 0) {
+    if (sections.length > 0) {
         // Initially hide all sections except About
         sections.forEach((section, index) => {
             if (index > 0) { // Hide all sections except the first (About)
@@ -33,18 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const updateActiveNavLinkOnScroll = () => {
-            const containerScrollTop = contentContainer.scrollTop;
-            // An offset to trigger activation when the section is near the top of the viewport.
-            // Adjust this value as needed (e.g., a fraction of viewport height or fixed pixels).
-            const activationOffset = contentContainer.clientHeight * 0.4; 
+            const windowScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            // An offset to trigger activation when the section is near the top of the viewport
+            const activationOffset = windowHeight * 0.4; 
             let currentActiveSectionId = '';
 
             // Default to the first section if scrolled to the very top
-            if (containerScrollTop < 50) { // Small threshold for being at the top
+            if (windowScrollTop < 50) { // Small threshold for being at the top
                 currentActiveSectionId = sections[0].id;
             } else {
                 for (const section of sections) {
-                    if (section.offsetTop <= containerScrollTop + activationOffset) {
+                    const sectionTop = section.getBoundingClientRect().top + windowScrollTop;
+                    if (sectionTop <= windowScrollTop + activationOffset) {
                         currentActiveSectionId = section.id;
                     } else {
                         // Sections are ordered, so if this one isn't active, subsequent ones won't be.
@@ -54,7 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             // If scrolled to the very bottom, the last section should be active
-            if (containerScrollTop + contentContainer.clientHeight >= contentContainer.scrollHeight - 2) { // 2px tolerance
+            const documentHeight = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            
+            if (windowScrollTop + windowHeight >= documentHeight - 2) { // 2px tolerance
                 currentActiveSectionId = sections[sections.length - 1].id;
             }
 
@@ -69,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Section animation observer
         const sectionObserverOptions = {
-            root: contentContainer,
+            root: null, // Use viewport as root instead of contentContainer
             rootMargin: '0px 0px -20% 0px',
             threshold: 0.1
         };
@@ -90,14 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        contentContainer.addEventListener('scroll', updateActiveNavLinkOnScroll);
+        // Use window scroll event instead of contentContainer scroll
+        window.addEventListener('scroll', updateActiveNavLinkOnScroll, { passive: true });
         // Initial call to set active link on page load
         updateActiveNavLinkOnScroll();
     }
 
     // Card animation on scroll
     const observerOptions = {
-        root: contentContainer,
+        root: null, // Use viewport as root instead of contentContainer
         rootMargin: '0px 0px -10% 0px',
         threshold: 0.1
     };
