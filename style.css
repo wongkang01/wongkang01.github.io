@@ -29,7 +29,6 @@ body {
   padding: 0;
   background-color: var(--bg-color); /* Deep black background */
   color: var(--text-color); /* Light gray text */
-  display: flex;
   height: 100vh;
   overflow: hidden; /* Prevent body scroll */
   position: relative; /* For seamless spotlight effect */
@@ -38,23 +37,23 @@ body {
 .main-container {
   display: flex;
   width: 100%;
-  height: 100%;
+  max-width: 1440px; /* Max width for the centered content */
+  margin: 0 auto; /* Center the container */
+  height: 100%; /* Effectively 100vh */
 }
 
 /* Side Navigation - Left Side, Static */
 .side-nav {
-  width: 40%; /* Adjust as needed, screenshot looks like ~40-50% */
-  max-width: 450px; /* Max width for larger screens */
+  width: 30%; /* Adjusted width */
+  max-width: 440px; /* Adjusted max-width */
   padding: 50px 40px;
   background-color: transparent; /* Transparent for seamless spotlight effect */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes social links to bottom */
   height: 100vh; /* Full viewport height */
-  position: fixed; /* Fixed position */
-  left: 0;
-  top: 0;
   box-sizing: border-box;
+  overflow-y: auto; /* Added for potential overflow */
 }
 
 .nav-header h1 {
@@ -154,8 +153,7 @@ body {
 
 /* Content Area - Right Side, Scrollable */
 .content-container {
-  margin-left: 40%; /* Same as side-nav width */
-  width: 60%; /* Remaining width */
+  width: 70%; /* Adjusted width */
   height: 100vh;
   overflow-y: auto; /* Allow scrolling only for content */
   padding: 50px 40px;
