@@ -377,6 +377,12 @@ body::-webkit-scrollbar {
   white-space: nowrap; /* Prevent date from wrapping */
 }
 
+.card .date { /* This specific .date inside .card might be less used now, but kept for safety */
+  font-size: 0.9em;
+  color: var(--secondary-text); /* Medium grey for dates */
+  white-space: nowrap; /* Prevent date from wrapping */
+}
+
 .card p {
   font-size: 0.95em;
   line-height: 1.6;
@@ -413,6 +419,42 @@ body::-webkit-scrollbar {
   background-color: rgba(20, 184, 166, 0.2); /* Enhanced background when card is hovered */
 }
 
+/* Project links styling */
+.project-links {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.project-links .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  background-color: rgba(20, 184, 166, 0.1);
+  color: var(--accent-color);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85em;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  transition: all 0.3s ease;
+}
+
+.project-links .btn:hover {
+  background-color: rgba(20, 184, 166, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
+}
+
+.card-title-section .date {
+  display: block;
+  font-size: 0.9em;
+  color: var(--secondary-text);
+  margin-top: 5px;
+  font-weight: 500;
+}
+
 /* Responsive Design Adjustments */
 @media (max-width: 992px) { /* Tablet and smaller */
   .main-container {
@@ -440,6 +482,7 @@ body::-webkit-scrollbar {
     padding: 30px 20px;
   }
 
+  /* Adjust card layout for tablet */
   .card-header {
     flex-direction: column;
     align-items: flex-start;
@@ -448,6 +491,28 @@ body::-webkit-scrollbar {
   .card .date {
     margin-left: 0;
     margin-top: 5px;
+  }
+
+  /* Stack project cards vertically on tablet */
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-thumbnail-column,
+  .card-content-column,
+  .card-date-column {
+    width: 100%;
+    flex: none;
+  }
+
+  .project-thumbnail-column {
+    margin-bottom: 15px;
+  }
+
+  .card-date-column {
+    margin-bottom: 10px;
+    padding-top: 0;
   }
 }
 
@@ -476,6 +541,61 @@ body::-webkit-scrollbar {
   }
   .tags span {
     font-size: 0.75em;
+  }
+
+  /* Mobile layout for project and experience cards */
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* For project cards - reorder elements for mobile */
+  #projects .card .card-content-column {
+    order: 1; /* Content first */
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #projects .card .project-thumbnail-column {
+    order: 2; /* Image second */
+    width: 100%;
+    flex: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  #projects .card .project-thumbnail {
+    width: 100%;
+    max-width: 300px; /* Limit maximum width */
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* For experience cards - keep content layout but stack vertically */
+  #experience .card .card-date-column {
+    order: 1;
+    flex: none;
+    width: 100%;
+    margin-bottom: 10px;
+    padding-top: 0;
+  }
+
+  #experience .card .card-content-column {
+    order: 2;
+    width: 100%;
+  }
+
+  /* Ensure card title section has proper spacing on mobile */
+  .card-title-section {
+    margin-bottom: 15px;
+  }
+
+  .card-title-section .date {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85em;
   }
 }
 
